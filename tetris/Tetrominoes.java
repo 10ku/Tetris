@@ -40,4 +40,24 @@ public class Tetrominoes
 					};
 	
 	}
+	
+	public int[][] rotate90(int[][] secondMatrix)
+	{
+		int row = 2;
+		int column = secondMatrix[0].length;
+		int[][] rotatedMatrix = new int[row][column];
+		int[][] firstMatrix = {
+			{ 0,1}, 
+			{-1,0}, 
+				 };
+		
+		for (int currRow = 0; currRow < row; currRow++)
+		{
+			for (int currColumn = 0; currColumn < column; currColumn++)
+			{
+				rotatedMatrix[currRow][currColumn] = firstMatrix[currRow][0] * secondMatrix[0][currColumn] + firstMatrix[currRow][1] * secondMatrix[1][currColumn];
+			}
+		}
+		return rotatedMatrix;
+	}
 }
