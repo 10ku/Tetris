@@ -1,2 +1,5 @@
 # VS Code files
 ws.code-workspace
+
+# Compiled Java code
+*.class
