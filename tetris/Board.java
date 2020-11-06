@@ -2,7 +2,7 @@ package tetris;
 
 public class Board
 {
-	private char[][] board;
+	public char[][] board;
 
 	public Board()
 	{
