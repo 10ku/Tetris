@@ -2,43 +2,45 @@ package tetris;
 
 public class Tetrominoes
 {
-	public Tetrominoes()
-	{
-		int[][] iBlock = {
+	private final static int[][] iBlock = {
 			{0,0,0,0}, //x
 			{0,1,2,3}, //y
 					};
 					
-		int[][] jBlock ={
+	private final static int[][] jBlock = {
 			{0,0,1,2}, 
 			{0,1,0,0}, 
 					};
 		
-		int[][] lBlock = {
+	private final static int[][] lBlock = {
 			{0,1,2,2}, 
 			{0,0,0,1}, 
 					};
 					
-		int[][] oBlock = {
+	private final static int[][] oBlock = {
 			{0,0,1,1}, 
 			{0,1,0,1}, 
 					};
 					
-		int[][] sBlock = {
+	private final static int[][] sBlock = {
 			{0,1,1,2}, 
 			{0,0,1,1}, 
 					};
 		
-		int[][] tBlock = {
+	private final static int[][] tBlock = {
 			{0,1,1,2}, 
 			{0,0,1,0}, 
 					};
 					
-		int[][] zBlock = {
+	private final static int[][] zBlock = {
 			{0,1,1,2}, 
 			{1,1,0,0}, 
 					};
 	
+	
+	public Tetrominoes()
+	{
+		
 	}
 	
 	public int[][] rotate90(int[][] secondMatrix)
