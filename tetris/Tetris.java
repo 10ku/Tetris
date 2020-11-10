@@ -81,7 +81,7 @@ public class Tetris
 		textArea.setForeground(Color.WHITE);
 		textArea.setFont(new Font("Courier New", Font.PLAIN, 16));
 		textArea.setEditable(false);
-		textArea.setFocusable(false);
+		textArea.setHighlighter(null);
 		frame.add(scrollPane);
 		frame.setSize(640, 480);
 		frame.setLocationRelativeTo(null);
