@@ -4,13 +4,69 @@ import java.util.Arrays;
 import java.util.Timer;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.io.PrintStream;
+
+import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.KeyStroke;
 
 public class Tetris
 {
+	static boolean quit = false;
+	
+	private static void configureBinds(JTextArea textArea)
+	{
+		textArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "up");
+		textArea.getActionMap().put("up", new AbstractAction()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				System.out.println("up");
+			}
+		});
+		textArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "down");
+		textArea.getActionMap().put("down", new AbstractAction()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				System.out.println("down");
+			}
+		});
+		textArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "left");
+		textArea.getActionMap().put("left", new AbstractAction()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				System.out.println("left");
+			}
+		});
+		textArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "right");
+		textArea.getActionMap().put("right", new AbstractAction()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				System.out.println("right");
+			}
+		});
+		textArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "esc");
+		textArea.getActionMap().put("esc", new AbstractAction()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				quit = true;
+			}
+		});
+	}
+	
 	public static void main(String[] args)
 	{
 		//GUI declarations
