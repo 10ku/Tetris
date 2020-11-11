@@ -28,6 +28,38 @@ public class Board
 																};
 	}
 	
+	public void draw(Tetromino tetromino)
+	{
+		int x = 0;
+		int y = 0;
+		
+		for (int i = 0; i < 4; i++)
+		{
+			x = tetromino.tetromino[0][i];
+			y = tetromino.tetromino[1][i];
+			
+			board[y][x+5] = 'X';
+		}
+	}
+	
+	public void clear()
+	{
+		for (int i = 0; i < board.length; i++)
+		{
+			for (int j = 0; j < board[0].length; j++)
+			{
+				if (j == 0 || j == board[0].length - 1)
+				{
+					board[i][j] = '|';
+				}
+				else
+				{
+					board[i][j] = '.';
+				}
+			}
+		}
+	}
+	
 	public String toString()
 	{
 		String boardString = "";
