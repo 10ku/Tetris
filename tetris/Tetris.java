@@ -92,17 +92,36 @@ public class Tetris
 		System.setOut(printStream);
 		System.setErr(printStream);
 		
+		//Tetris
 		Board myBoard = new Board();
-		boolean quit = false;
+		Tetrominoes tetrominoes = new Tetrominoes();
+		Tetromino mino;
 		
+		//myBoard.board[1][1] = 'c';
+		//System.out.println(Arrays.deepToString(tetrominoes.returnRandomTetromino()));
+
+		//INPUT
+		configureBinds(textArea);
+		
+		//GAME
+		mino = new Tetromino(tetrominoes.returnRandomTetromino());
+		
+		myBoard.draw(mino);
+		
+		//OUTPUT
 		System.out.println(myBoard.toString());
 		
-		Tetrominoes test = new Tetrominoes();
-		int[][] testM = {
-				{0,1,1,2},
-				{1,1,0,0},
-						};
+		while (quit == false)
+		{
+			//textArea.setText(null);
+			//myBoard.clear();
+			//System.out.println(myBoard.toString());
+		}
 		
-		//jFrame.dispose();
+		textArea.setText(null);
+		myBoard.clear();
+		System.out.println(myBoard.toString());
+		
+		//frame.dispose();
 	}
 }
