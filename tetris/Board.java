@@ -11,6 +11,10 @@ public class Board
 	 */
 	public int[][] gameBoard;
 	public char[][] graphicsBoard;
+	public int score = 0;
+	public int level = 0;
+	public int lines = 0;
+	public int nextTetromino = 0;
 
 	public Board()
 	{
