@@ -76,32 +76,63 @@ public class Board
 		}
 	}
 	
+	public boolean tryInsertingTetromino(Tetromino tetromino)
+	{
 		int x = 0;
 		int y = 0;
+		boolean lockTetromino = false;
 		
 		for (int i = 0; i < 4; i++)
 		{
 			x = tetromino.tetromino[0][i];
 			y = tetromino.tetromino[1][i];
 			
-			board[y][x+5] = 'X';
-		}
-	}
-	
-	public void clear()
-	{
-		for (int i = 0; i < board.length; i++)
-		{
-			for (int j = 0; j < board[0].length; j++)
+			if (gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] == 1)
 			{
-				if (j == 0 || j == board[0].length - 1)
+				if (tetromino.xOffset <= 5)
 				{
-					board[i][j] = '|';
+					tetromino.xOffset++;
 				}
 				else
 				{
-					board[i][j] = '.';
+					tetromino.xOffset--;
 				}
+				i = 0;
+			}
+			else if (gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] == 4)
+			{
+				lockTetromino = true;
+				tetromino.yOffset--;
+				i = 0;
+			}
+			else if (gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] == 2)
+			{
+				lockTetromino = true;
+				tetromino.yOffset--;
+				break;
+			}
+		}
+		insertTetromino(tetromino, lockTetromino);
+		return lockTetromino;
+	}
+	
+	private void insertTetromino(Tetromino tetromino, boolean lockTetromino)
+		{
+		int x = 0;
+		int y = 0;
+		
+		for (int i = 0; i < 4; i++)
+			{
+			x = tetromino.tetromino[0][i];
+			y = tetromino.tetromino[1][i];
+			
+			if (lockTetromino == false)
+				{
+				gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] = 3;
+				}
+				else
+				{
+				gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] = 4;
 			}
 		}
 	}
