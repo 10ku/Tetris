@@ -18,6 +18,14 @@ public class Tetris
 {
 	static boolean quit = false;
 	
+	/*
+	 * index 0 - up
+	 * index 1 - down
+	 * index 2 - left
+	 * index 3 - right
+	 */
+	static boolean[] input = new boolean[4];
+	
 	private static void configureBinds(JTextArea textArea)
 	{
 		textArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "up");
@@ -26,7 +34,8 @@ public class Tetris
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				System.out.println("up");
+				//mino.rotate90();
+				input[0] = true;
 			}
 		});
 		textArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "down");
@@ -35,7 +44,8 @@ public class Tetris
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				System.out.println("down");
+				//mino.yOffset++;
+				input[1] = true;
 			}
 		});
 		textArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "left");
@@ -44,7 +54,8 @@ public class Tetris
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				System.out.println("left");
+				//mino.xOffset--;
+				input[2] = true;
 			}
 		});
 		textArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "right");
@@ -53,7 +64,8 @@ public class Tetris
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				System.out.println("right");
+				//mino.xOffset++;
+				input[3] = true;
 			}
 		});
 		textArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "esc");
@@ -65,6 +77,30 @@ public class Tetris
 				quit = true;
 			}
 		});
+	}
+	
+	private static void processInput(Tetromino mino)
+	{
+		if (input[0] == true)
+		{
+			mino.rotate90();
+		}
+		if (input[1] == true)
+		{
+			mino.yOffset++;
+		}
+		if (input[2] == true)
+		{
+			mino.xOffset--;
+		}
+		if (input[3] == true)
+		{
+			mino.xOffset++;
+		}
+		for (int i = 0; i < 4; i++)
+		{
+			input[i] = false;
+		}
 	}
 	
 	public static void main(String[] args)
@@ -95,7 +131,7 @@ public class Tetris
 		//Tetris
 		Board myBoard = new Board();
 		Tetrominoes tetrominoes = new Tetrominoes();
-		Tetromino mino;
+		configureBinds(textArea);
 		
 		//myBoard.board[1][1] = 'c';
 		//System.out.println(Arrays.deepToString(tetrominoes.returnRandomTetromino()));
