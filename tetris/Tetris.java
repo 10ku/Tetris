@@ -131,33 +131,47 @@ public class Tetris
 		//Tetris
 		Board myBoard = new Board();
 		Tetrominoes tetrominoes = new Tetrominoes();
+		Tetromino mino = null;
+		boolean newBlock = true;
 		configureBinds(textArea);
-		
-		//myBoard.board[1][1] = 'c';
-		//System.out.println(Arrays.deepToString(tetrominoes.returnRandomTetromino()));
-
-		//INPUT
-		configureBinds(textArea);
-		
-		//GAME
-		mino = new Tetromino(tetrominoes.returnRandomTetromino());
-		
-		myBoard.draw(mino);
-		
-		//OUTPUT
-		System.out.println(myBoard.toString());
 		
 		while (quit == false)
 		{
-			//textArea.setText(null);
-			//myBoard.clear();
-			//System.out.println(myBoard.toString());
+		//INPUT
+			processInput(mino);
+		
+		//GAME
+			if (newBlock == true)
+			{
+		mino = new Tetromino(tetrominoes.returnRandomTetromino());
+				newBlock = false;
+			}
+		
+			myBoard.setGameBoard();
+		
+			if (myBoard.tryInsertingTetromino(mino) == true)
+			{
+				newBlock = true;
+			}
+			else
+		{
+				mino.yOffset++;
 		}
 		
+			//RENDER
 		textArea.setText(null);
-		myBoard.clear();
+			myBoard.setBoardGraphics();
 		System.out.println(myBoard.toString());
+			try
+			{
+				Thread.sleep(500);
+			} catch (InterruptedException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
-		//frame.dispose();
+		frame.dispose();
 	}
 }
