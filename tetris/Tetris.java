@@ -114,11 +114,11 @@ public class Tetris
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 		textArea.setBackground(Color.BLACK);
 		textArea.setForeground(Color.WHITE);
-		textArea.setFont(new Font("Courier New", Font.PLAIN, 16));
+		textArea.setFont(new Font("Courier New", Font.PLAIN, 22));
 		textArea.setEditable(false);
 		textArea.setHighlighter(null);
 		frame.add(scrollPane);
-		frame.setSize(640, 480);
+		frame.setSize(800, 600);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
@@ -136,31 +136,31 @@ public class Tetris
 		
 		while (quit == false)
 		{
-		//INPUT
+			//INPUT
 			processInput(mino);
-		
-		//GAME
+			
+			//GAME
 			if (newBlock == true)
 			{
-		mino = new Tetromino(tetrominoes.returnRandomTetromino());
+				mino = new Tetromino(tetrominoes.returnRandomTetromino());
 				newBlock = false;
 			}
-		
+			
 			myBoard.setGameBoard();
-		
+			
 			if (myBoard.tryInsertingTetromino(mino) == true)
 			{
 				newBlock = true;
 			}
 			else
-		{
+			{
 				mino.yOffset++;
-		}
-		
+			}
+			
 			//RENDER
-		textArea.setText(null);
+			textArea.setText(null);
 			myBoard.setBoardGraphics();
-		System.out.println(myBoard.toString());
+			System.out.println(myBoard.toString());
 			try
 			{
 				Thread.sleep(500);
