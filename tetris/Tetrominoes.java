@@ -5,39 +5,39 @@ import java.util.Random;
 public class Tetrominoes
 {
 	private final static int[][] iBlock = {
-		{0,0,0,0}, //x
-		{0,1,2,3}, //y
-				};
+		{0,-1,1,2}, //x
+		{0, 0,0,0}, //y
+				 };
 				
 	private final static int[][] jBlock = {
-		{0,0,1,2}, 
-		{0,1,0,0}, 
-				};
+		{0,-1,1,1}, 
+		{0, 0,0,1}, 
+				 };
 	
 	private final static int[][] lBlock = {
-		{0,1,2,2}, 
-		{0,0,0,1}, 
-				};
+		{0,1,-1,-1}, 
+		{0,0, 0, 1}, 
+				  };
 				
 	private final static int[][] oBlock = {
-		{0,0,1,1}, 
 		{0,1,0,1}, 
+		{0,0,1,1}, 
 				};
 				
 	private final static int[][] sBlock = {
-		{0,1,1,2}, 
-		{0,0,1,1}, 
-				};
+		{0,1,0,-1}, 
+		{0,0,1, 1}, 
+				 };
 	
 	private final static int[][] tBlock = {
-		{0,1,1,2}, 
-		{0,0,1,0}, 
-				};
+		{0,-1,0,1}, 
+		{0, 0,1,0}, 
+				 };
 				
 	private final static int[][] zBlock = {
-		{0,1,1,2}, 
-		{1,1,0,0}, 
-				};
+		{0,-1,0,1}, 
+		{0, 0,1,1}, 
+				 };
 	
 	private Random random = new Random();
 	
