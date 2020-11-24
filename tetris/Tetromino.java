@@ -4,7 +4,7 @@ public class Tetromino
 {
 	public int[][] tetromino;
 	public int xOffset = 5;
-	public int yOffset = 0;
+	public int yOffset = 2;
 	
 	public Tetromino(int[][] tetromino)
 	{
