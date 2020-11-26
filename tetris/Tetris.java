@@ -138,12 +138,30 @@ public class Tetris
 		Tetromino currMino = null;
 		Tetromino nextMino = new Tetromino(tetrominoes.returnRandomTetromino());
 		boolean newBlock = true;
+		int gameSpeed = 12;
+		int gameSpeedCount = 0;
 		configureBinds(textArea);
 		
 		while (quit == false)
 		{
+			//TIME
+			try
+			{
+				Thread.sleep(40);
+			} catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+			
+				gameSpeedCount++;
+			
+			if (gameSpeedCount == gameSpeed)
+			{
+				forceTetrominoDown = true;
+			}
+			
 			//INPUT
-			processInput(mino);
+				processInput(currMino);
 			
 			//GAME
 			if (newBlock == true)
@@ -160,23 +178,18 @@ public class Tetris
 			{
 				newBlock = true;
 			}
-			else
+			else if (forceTetrominoDown == true)
 			{
-				mino.yOffset++;
+				currMino.yOffset++;
+				lastMove = 1;
+				forceTetrominoDown = false;
+				gameSpeedCount = 0;
 			}
 			
 			//RENDER
 			textArea.setText(null);
 			myBoard.setBoardGraphics();
 			System.out.println(myBoard.toString());
-			try
-			{
-				Thread.sleep(500);
-			} catch (InterruptedException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 		
 		frame.dispose();
