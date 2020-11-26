@@ -24,6 +24,7 @@ public class Tetris
 	 * index 3 - right
 	 */
 	static boolean[] input = new boolean[4];
+	static int lastMove = -1;
 	
 	private static void configureBinds(JTextArea textArea)
 	{
@@ -82,7 +83,7 @@ public class Tetris
 	{
 		if (input[0] == true)
 		{
-			mino.rotate90();
+			lastMove = 0;
 		}
 		if (input[1] == true)
 		{
@@ -91,10 +92,12 @@ public class Tetris
 		if (input[2] == true)
 		{
 			mino.xOffset--;
+			lastMove = 2;
 		}
 		if (input[3] == true)
 		{
 			mino.xOffset++;
+			lastMove = 3;
 		}
 		for (int i = 0; i < 4; i++)
 		{
@@ -151,7 +154,7 @@ public class Tetris
 			
 			myBoard.setGameBoard();
 			
-			if (myBoard.tryInsertingTetromino(mino) == true)
+			if (myBoard.tryLockingTetromino(currMino, lastMove) == true)
 			{
 				newBlock = true;
 			}

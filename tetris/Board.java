@@ -78,7 +78,7 @@ public class Board
 		}
 	}
 	
-	public boolean tryInsertingTetromino(Tetromino tetromino)
+	public boolean tryLockingTetromino(Tetromino tetromino, int lastMove)
 	{
 		int x = 0;
 		int y = 0;
@@ -99,13 +99,33 @@ public class Board
 				{
 					tetromino.xOffset--;
 				}
-				i = 0;
+				i = -1;
 			}
 			else if (gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] == 4)
 			{
+				switch (lastMove)
+				{
+				case 0:
+					lastMove = 1;
+					tetromino.rotate90Left();
+					i = -1;
+					break;
+				case 1:
 				lockTetromino = true;
 				tetromino.yOffset--;
-				i = 0;
+					i = -1;
+					break;
+				case 2:
+					lastMove = 1;
+					tetromino.xOffset++;
+					i = -1;
+					break;
+				case 3:
+					lastMove = 1;
+					tetromino.xOffset--;
+					i = -1;
+					break;
+				}
 			}
 			else if (gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] == 2)
 			{
