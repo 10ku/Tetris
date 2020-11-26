@@ -24,6 +24,7 @@ public class Tetris
 	 * index 3 - right
 	 */
 	static boolean[] input = new boolean[4];
+	static boolean forceTetrominoDown = false;
 	static int lastMove = -1;
 	
 	private static void configureBinds(JTextArea textArea)
@@ -44,7 +45,7 @@ public class Tetris
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				//mino.yOffset++;
+				//forceTetrominoDown = true;
 				input[1] = true;
 			}
 		});
@@ -83,18 +84,19 @@ public class Tetris
 	{
 		if (input[0] == true)
 		{
+			mino.rotate90Right();
 			lastMove = 0;
 		}
-		if (input[1] == true)
+		else if (input[1] == true)
 		{
-			mino.yOffset++;
+			forceTetrominoDown = true;
 		}
-		if (input[2] == true)
+		else if (input[2] == true)
 		{
 			mino.xOffset--;
 			lastMove = 2;
 		}
-		if (input[3] == true)
+		else if (input[3] == true)
 		{
 			mino.xOffset++;
 			lastMove = 3;
