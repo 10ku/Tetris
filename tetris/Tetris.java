@@ -153,7 +153,10 @@ public class Tetris
 				e.printStackTrace();
 			}
 			
+			if (myBoard.hasLines == false)
+			{
 				gameSpeedCount++;
+			}
 			
 			if (gameSpeedCount == gameSpeed)
 			{
@@ -161,7 +164,10 @@ public class Tetris
 			}
 			
 			//INPUT
+			if (myBoard.hasLines == false)
+			{
 				processInput(currMino);
+			}
 			
 			//GAME
 			if (newBlock == true)
@@ -172,9 +178,17 @@ public class Tetris
 				newBlock = false;
 			}
 			
-			myBoard.setGameBoard();
+			if (myBoard.hasLines == false)
+			{
+				myBoard.setGameBoard();
+			}
 			
-			if (myBoard.tryLockingTetromino(currMino, lastMove) == true)
+			if (myBoard.hasLines == true)
+			{
+				myBoard.clearLines();
+				myBoard.hasLines = false;
+			}
+			else if (myBoard.tryLockingTetromino(currMino, lastMove) == true)
 			{
 				newBlock = true;
 			}
