@@ -11,6 +11,7 @@ public class Board
 	 */
 	public int[][] gameBoard;
 	public char[][] graphicsBoard;
+	public char[][] nextTetrominoGraphic;
 	public int score = 0;
 	public int level = 0;
 	public int lines = 0;
@@ -18,6 +19,7 @@ public class Board
 
 	public Board()
 	{
+		nextTetrominoGraphic = new char[4][4];
 		graphicsBoard = new char[19][12];
 		gameBoard = new int[graphicsBoard.length][graphicsBoard[0].length];
 		this.setGameBoard();
@@ -137,6 +139,29 @@ public class Board
 		}
 	}
 	
+	
+	public void nextTetromino(Tetromino tetromino)
+	{
+		int x = 0;
+		int y = 0;
+		
+		for (int i = 0; i < nextTetrominoGraphic.length; i++)
+		{
+			for (int j = 0; j < nextTetrominoGraphic[0].length; j++)
+			{
+				nextTetrominoGraphic[i][j] = '.';
+			}
+		}
+		
+		for (int k = 0; k < 4; k++)
+		{
+			x = tetromino.tetromino[0][k];
+			y = tetromino.tetromino[1][k];
+			
+			nextTetrominoGraphic[y + 1][x + 1] = 'X';
+		}
+	}
+	
 	public String toString()
 	{
 		String boardString = "";
@@ -153,33 +178,64 @@ public class Board
 				//Draw board
 				boardString += graphicsBoard[i][j];
 				//Draw after board
-				if (i == 2 && j == graphicsBoard[0].length - 1)
+				if (j == graphicsBoard[0].length - 1)
 				{
-					boardString += "        Score\n";
-				}
-				else if (i == 3 && j == graphicsBoard[0].length - 1)
+					switch (i)
 				{
+					case 2:
+						boardString += "        Score\n";
+						break;
+					case 3:
 					boardString += "        " + score + "\n";
-				}
-				else if (i == 6 && j == graphicsBoard[0].length - 1)
+						break;
+					case 6:
+						boardString += "        Level\n";
+						break;
+					case 7:
+						boardString += "        " + level + "\n";
+						break;
+					case 9:
+						boardString += "        Lines\n";
+						break;
+					case 10:
+						boardString += "        " + lines + "\n";
+						break;
+					case 13:
+						boardString += "        ";
+						for (int k = 0; k < nextTetrominoGraphic[0].length; k++)
 				{
-					boardString += "        Level\n";
+							boardString += nextTetrominoGraphic[0][k];
 				}
-				else if (i == 7 && j == graphicsBoard[0].length - 1)
+						boardString += "\n";
+						break;
+					case 14:
+						boardString += "        ";
+						for (int k = 0; k < nextTetrominoGraphic[0].length; k++)
 				{
-					boardString += "        " + level + "\n";
+							boardString += nextTetrominoGraphic[1][k];
 				}
-				else if (i == 9 && j == graphicsBoard[0].length - 1)
+						boardString += "\n";
+						break;
+					case 15:
+						boardString += "        ";
+						for (int k = 0; k < nextTetrominoGraphic[0].length; k++)
 		{
-					boardString += "        Lines\n";
+							boardString += nextTetrominoGraphic[2][k];
 				}
-				else if (i == 10 && j == graphicsBoard[0].length - 1)
+						boardString += "\n";
+						break;
+					case 16:
+						boardString += "        ";
+						for (int k = 0; k < nextTetrominoGraphic[0].length; k++)
 			{
-					boardString += "        " + lines + "\n";
+							boardString += nextTetrominoGraphic[3][k];
 				}
-				else if (j == graphicsBoard[0].length - 1)
-				{
+						boardString += "\n";
+						break;
+					default:
 					boardString += "\n";
+						break;
+					}
 				}
 			}
 		}

@@ -130,7 +130,8 @@ public class Tetris
 		//Tetris
 		Board myBoard = new Board();
 		Tetrominoes tetrominoes = new Tetrominoes();
-		Tetromino mino = null;
+		Tetromino currMino = null;
+		Tetromino nextMino = new Tetromino(tetrominoes.returnRandomTetromino());
 		boolean newBlock = true;
 		configureBinds(textArea);
 		
@@ -142,7 +143,9 @@ public class Tetris
 			//GAME
 			if (newBlock == true)
 			{
-				mino = new Tetromino(tetrominoes.returnRandomTetromino());
+				currMino = nextMino;
+				nextMino = new Tetromino(tetrominoes.returnRandomTetromino());				
+				myBoard.nextTetromino(nextMino);
 				newBlock = false;
 			}
 			
