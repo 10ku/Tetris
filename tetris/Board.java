@@ -84,18 +84,28 @@ public class Board
 		}
 	}
 
-	public boolean tryLockingTetromino(Tetromino tetromino, int lastMove)
+	/*
+	 * 0 - False
+	 * 1 - True
+	 * 2 - Game Over
+	 */
+	public int tryLockingTetromino(Tetromino tetromino, int lastMove)
 	{
 		int x = 0;
 		int y = 0;
-		boolean lockTetromino = false;
+		int lockTetromino = 0;
 		
 		for (int i = 0; i < 4; i++)
 		{
 			x = tetromino.tetromino[0][i];
 			y = tetromino.tetromino[1][i];
 
-			if (gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] == 1)
+			if (y + tetromino.yOffset < 0)
+			{
+				lockTetromino = 2;
+				return lockTetromino;
+			}
+			else if (gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] == 1)
 			{
 				if (tetromino.xOffset <= 5)
 				{
@@ -117,7 +127,7 @@ public class Board
 					i = -1;
 					break;
 				case 1:
-					lockTetromino = true;
+					lockTetromino = 1;
 					tetromino.yOffset--;
 					i = -1;
 					break;
@@ -135,7 +145,7 @@ public class Board
 			}
 			else if (gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] == 2)
 			{
-				lockTetromino = true;
+				lockTetromino = 1;
 				tetromino.yOffset--;
 				break;
 			}
@@ -144,7 +154,7 @@ public class Board
 		return lockTetromino;
 	}
 	
-	private void insertTetromino(Tetromino tetromino, boolean lockTetromino)
+	private void insertTetromino(Tetromino tetromino, int lockTetromino)
 	{
 		int x = 0;
 		int y = 0;
@@ -154,7 +164,7 @@ public class Board
 			x = tetromino.tetromino[0][i];
 			y = tetromino.tetromino[1][i];
 			
-			if (lockTetromino == false)
+			if (lockTetromino == 0)
 			{
 				gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] = 3;
 			}
@@ -164,7 +174,7 @@ public class Board
 			}
 		}
 		
-		if (lockTetromino == true)
+		if (lockTetromino == 1)
 		{
 			checkForLines();
 		}

@@ -16,6 +16,7 @@ import javax.swing.KeyStroke;
 public class Tetris
 {
 	static boolean quit = false;
+	static boolean newGame = false;
 	
 	/*
 	 * index 0 - up
@@ -78,6 +79,15 @@ public class Tetris
 				quit = true;
 			}
 		});
+		textArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enter");
+		textArea.getActionMap().put("enter", new AbstractAction()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				newGame = true;
+	}
+		});
 	}
 	
 	private static void processInput(Tetromino mino)
@@ -138,6 +148,7 @@ public class Tetris
 		Tetromino currMino = null;
 		Tetromino nextMino = new Tetromino(tetrominoes.returnRandomTetromino());
 		boolean newBlock = true;
+		int lockTetromino = 0;
 		int gameSpeed = 12;
 		int gameSpeedCount = 0;
 		configureBinds(textArea);
@@ -188,9 +199,42 @@ public class Tetris
 				myBoard.clearLines();
 				myBoard.hasLines = false;
 			}
-			else if (myBoard.tryLockingTetromino(currMino, lastMove) == true)
+			
+			lockTetromino = myBoard.tryLockingTetromino(currMino, lastMove);
+			
+			if (lockTetromino == 1)
 			{
 				newBlock = true;
+			}
+			else if (lockTetromino == 2)
+			{
+				textArea.setText(null);
+				System.out.println("Game Over!\n");
+				System.out.println("ESC - End Game | ENTER - Restart");
+				while (quit == false && newGame == false)
+				{
+					try
+					{
+						Thread.sleep(300);
+					} 
+					catch (InterruptedException e)
+					{
+						e.printStackTrace();
+					}
+				}
+				if (newGame == true)
+			{
+					myBoard = new Board();
+					currMino = null;
+					nextMino = new Tetromino(tetrominoes.returnRandomTetromino());
+				newBlock = true;
+					lockTetromino = 0;
+					gameSpeed = 12;
+					gameSpeedCount = 0;
+					newGame = false;
+					continue;
+				}
+				break;
 			}
 			else if (forceTetrominoDown == true)
 			{
