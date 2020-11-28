@@ -1,6 +1,5 @@
 package tetris;
 
-import java.util.Timer;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -86,7 +85,7 @@ public class Tetris
 			public void actionPerformed(ActionEvent e)
 			{
 				newGame = true;
-	}
+			}
 		});
 	}
 	
@@ -159,7 +158,8 @@ public class Tetris
 			try
 			{
 				Thread.sleep(40);
-			} catch (InterruptedException e)
+			} 
+			catch (InterruptedException e)
 			{
 				e.printStackTrace();
 			}
@@ -179,10 +179,9 @@ public class Tetris
 				}
 			}
 			
-			//INPUT
-			if (myBoard.hasLines == false)
+			if (gameSpeedCount == gameSpeed)
 			{
-				processInput(currMino);
+				forceTetrominoDown = true;
 			}
 			
 			//GAME
@@ -192,6 +191,11 @@ public class Tetris
 				nextMino = new Tetromino(tetrominoes.returnRandomTetromino());				
 				myBoard.nextTetromino(nextMino);
 				newBlock = false;
+			}
+			
+			if (myBoard.hasLines == false)
+			{
+				processInput(currMino);
 			}
 			
 			if (myBoard.hasLines == false)
@@ -228,11 +232,11 @@ public class Tetris
 					}
 				}
 				if (newGame == true)
-			{
+				{
 					myBoard = new Board();
 					currMino = null;
 					nextMino = new Tetromino(tetrominoes.returnRandomTetromino());
-				newBlock = true;
+					newBlock = true;
 					lockTetromino = 0;
 					gameSpeed = 12;
 					gameSpeedCount = 0;
