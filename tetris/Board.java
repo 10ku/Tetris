@@ -19,6 +19,7 @@ public class Board
 	public int score = 0;
 	public int level = 0;
 	public int lines = 0;
+	public int diffCounter = 0;
 	public int nextTetromino = 0;
 
 	public Board()
@@ -207,10 +208,15 @@ public class Board
 	
 	public void clearLines()
 	{
+		int linesCleared = 0;
+		
 		for (int i = 0; i < gameBoard.length; i++)
 		{
 			if (gameBoard[i][1] == 5)
 			{
+				lines++;
+				linesCleared++;
+				diffCounter++;
 				for (int j = 0; j < gameBoard[0].length; j++)
 				{
 					gameBoard[i][j] = 0;
@@ -218,6 +224,25 @@ public class Board
 				
 				moveLinesDownTo(i);
 			}
+		}
+		
+		switch (linesCleared)
+		{
+		case 1:
+			score += 40 * (level + 1);
+			break;
+		case 2:
+			score += 100 * (level + 1);
+			break;
+		case 3:
+			score += 300 * (level + 1);
+			break;
+		case 4:
+			score += 1200 * (level + 1);
+			break;
+		default:
+			score += 57005 * (level + 1);
+			break;
 		}
 	}
 	

@@ -169,9 +169,14 @@ public class Tetris
 				gameSpeedCount++;
 			}
 			
-			if (gameSpeedCount == gameSpeed)
+			if (myBoard.diffCounter / 10 > 0)
 			{
-				forceTetrominoDown = true;
+				myBoard.diffCounter %= 10;
+				if (gameSpeed > 2)
+				{
+					gameSpeed--;
+					myBoard.level++;
+				}
 			}
 			
 			//INPUT
