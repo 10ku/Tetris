@@ -35,7 +35,7 @@ public class Tetris
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				//mino.rotate90();
+				//mino.rotateTetromino90(false);
 				input[0] = true;
 			}
 		});
@@ -93,7 +93,7 @@ public class Tetris
 	{
 		if (input[0] == true)
 		{
-			mino.rotate90Right();
+			mino.rotateTetromino90(false);
 			lastMove = 0;
 		}
 		else if (input[1] == true)

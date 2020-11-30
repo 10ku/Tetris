@@ -124,7 +124,7 @@ public class Board
 				{
 				case 0:
 					lastMove = 1;
-					tetromino.rotate90Left();
+					tetromino.rotateTetromino90(true);
 					i = -1;
 					break;
 				case 1:
