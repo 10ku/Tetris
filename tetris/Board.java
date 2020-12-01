@@ -20,7 +20,6 @@ public class Board
 	public int level = 0;
 	public int lines = 0;
 	public int diffCounter = 0;
-	public int nextTetromino = 0;
 
 	public Board()
 	{
