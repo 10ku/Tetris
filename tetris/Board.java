@@ -137,57 +137,6 @@ public class Board
 		return lockTetromino;
 	}
 	
-	private void insertTetromino(Tetromino tetromino, int lockTetromino)
-	{
-		int x = 0;
-		int y = 0;
-		
-		for (int i = 0; i < 4; i++)
-		{
-			x = tetromino.tetromino[0][i];
-			y = tetromino.tetromino[1][i];
-			
-			if (lockTetromino == 0)
-			{
-				gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] = 3;
-			}
-			else
-			{
-				gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] = 4;
-			}
-		}
-		
-		if (lockTetromino == 1)
-		{
-			checkForLines();
-		}
-	}
-	
-	private void checkForLines()
-	{
-		int num = 0;
-		
-		for (int i = 0; i < gameBoard.length; i++)
-		{
-			num = 0;
-			for (int j = 0; j < gameBoard[0].length; j++)
-			{
-				if (gameBoard[i][j] == 4)
-				{
-					num++;
-				}
-				if (num == gameBoard[0].length - 2)
-				{
-					hasLines = true;
-					for (int k = 1; k < gameBoard[0].length - 1; k++)
-					{
-						gameBoard[i][k] = 5;
-					}
-				}
-			}
-		}
-	}
-	
 	public void clearLines()
 	{
 		int linesCleared = 0;
@@ -225,18 +174,6 @@ public class Board
 		default:
 			score += 57005 * (level + 1);
 			break;
-		}
-	}
-	
-	private void moveLinesDownTo(int i)
-	{
-		while (i != 0)
-		{
-			for (int j = 0; j < gameBoard[0].length; j++)
-			{
-				gameBoard[i][j] = gameBoard[i-1][j];
-			}
-			i--;
 		}
 	}
 	
@@ -340,5 +277,68 @@ public class Board
 			}
 		}
 		return boardString;
+	}
+
+	private void insertTetromino(Tetromino tetromino, int lockTetromino)
+	{
+		int x = 0;
+		int y = 0;
+		
+		for (int i = 0; i < 4; i++)
+		{
+			x = tetromino.tetromino[0][i];
+			y = tetromino.tetromino[1][i];
+			
+			if (lockTetromino == 0)
+			{
+				gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] = 3;
+			}
+			else
+			{
+				gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] = 4;
+			}
+		}
+		
+		if (lockTetromino == 1)
+		{
+			checkForLines();
+		}
+	}
+
+	private void checkForLines()
+	{
+		int num = 0;
+		
+		for (int i = 0; i < gameBoard.length; i++)
+		{
+			num = 0;
+			for (int j = 0; j < gameBoard[0].length; j++)
+			{
+				if (gameBoard[i][j] == 4)
+				{
+					num++;
+				}
+				if (num == gameBoard[0].length - 2)
+				{
+					hasLines = true;
+					for (int k = 1; k < gameBoard[0].length - 1; k++)
+					{
+						gameBoard[i][k] = 5;
+					}
+				}
+			}
+		}
+	}
+
+	private void moveLinesDownTo(int i)
+	{
+		while (i != 0)
+		{
+			for (int j = 0; j < gameBoard[0].length; j++)
+			{
+				gameBoard[i][j] = gameBoard[i-1][j];
+			}
+			i--;
+		}
 	}
 }
