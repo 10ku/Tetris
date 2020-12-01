@@ -2,16 +2,21 @@ package tetris;
 
 public class Board
 {
-	/*
-	 * gameBoard values
-	 * 
-	 * 0 - Empty Space
-	 * 1 - Wall
-	 * 2 - Floor
-	 * 3 - Tetromino
-	 * 4 - Locked Tetromino
-	 * 5 - Line
-	 */
+	//gameBoard values
+	private static final byte EMPTY_SPACE = 0;
+	private static final byte WALL = 1;
+	private static final byte FLOOR = 2;
+	private static final byte TETROMINO = 3;
+	private static final byte LOCKED_TETROMINO = 4;
+	private static final byte LINE = 5;
+	
+	//gameBoard size
+	private static final byte BOARD_HEIGHT = 19;
+	private static final byte BOARD_LENGTH = 12;
+	
+	//graphicsBoard character array
+	private static final String CHARACTER_GRAPHICS = ".|=X+#";
+
 	public int[][] gameBoard;
 	public char[][] graphicsBoard;
 	public char[][] nextTetrominoGraphic;
@@ -24,8 +29,8 @@ public class Board
 	public Board()
 	{
 		nextTetrominoGraphic = new char[4][4];
-		graphicsBoard = new char[19][12];
-		gameBoard = new int[graphicsBoard.length][graphicsBoard[0].length];
+		gameBoard = new int[BOARD_HEIGHT][BOARD_LENGTH];
+		graphicsBoard = new char[gameBoard.length][gameBoard[0].length];
 		this.setGameBoard();
 	}
 	
@@ -37,15 +42,15 @@ public class Board
 			{
 				if (j == 0 || j == gameBoard[0].length - 1)
 				{
-					gameBoard[i][j] = 1; 
+					gameBoard[i][j] = WALL; 
 				}
 				else if (i == gameBoard.length - 1)
 				{
-					gameBoard[i][j] = 2;
+					gameBoard[i][j] = FLOOR;
 				}
 				else if (gameBoard[i][j] != 4)
 				{
-					gameBoard[i][j] = 0;
+					gameBoard[i][j] = EMPTY_SPACE;
 				}
 			}
 		}
@@ -57,29 +62,7 @@ public class Board
 		{
 			for (int j = 0; j < graphicsBoard[0].length; j++)
 			{
-				switch (gameBoard[i][j])
-				{
-				case 0:
-					graphicsBoard[i][j] = '.';
-					break;
-				case 1:
-					graphicsBoard[i][j] = '|';
-					break;
-				case 2:
-					graphicsBoard[i][j] = '=';
-					break;
-				case 3:
-					graphicsBoard[i][j] = 'X';
-					break;
-				case 4:
-					graphicsBoard[i][j] = '+';
-					break;
-				case 5:
-					graphicsBoard[i][j] = '#';
-				default:
-					graphicsBoard[i][j] = '*';
-					break;
-				}
+				graphicsBoard[i][j] = CHARACTER_GRAPHICS.charAt(gameBoard[i][j]);
 			}
 		}
 	}
