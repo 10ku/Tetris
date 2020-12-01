@@ -169,9 +169,9 @@ public class Tetris
 				gameSpeedCount++;
 			}
 			
-			if (myBoard.diffCounter / 10 > 0)
+			if (myBoard.difficultyCounter / 10 > 0)
 			{
-				myBoard.diffCounter %= 10;
+				myBoard.difficultyCounter %= 10;
 				if (gameSpeed > 2)
 				{
 					gameSpeed--;
@@ -255,7 +255,7 @@ public class Tetris
 			
 			//RENDER
 			textArea.setText(null);
-			myBoard.setBoardGraphics();
+			myBoard.setGraphicsBoard();
 			System.out.println(myBoard.toString());
 		}
 		

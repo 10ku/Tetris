@@ -19,7 +19,7 @@ public class Board
 	public int score = 0;
 	public int level = 0;
 	public int lines = 0;
-	public int diffCounter = 0;
+	public int difficultyCounter = 0;
 
 	public Board()
 	{
@@ -51,7 +51,7 @@ public class Board
 		}
 	}
 	
-	public void setBoardGraphics()
+	public void setGraphicsBoard()
 	{
 		for (int i = 0; i < graphicsBoard.length; i++)
 		{
@@ -215,7 +215,7 @@ public class Board
 			{
 				lines++;
 				linesCleared++;
-				diffCounter++;
+				difficultyCounter++;
 				for (int j = 0; j < gameBoard[0].length; j++)
 				{
 					gameBoard[i][j] = 0;
