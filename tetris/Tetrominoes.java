@@ -41,11 +41,6 @@ public class Tetrominoes
 	
 	private Random random = new Random();
 	
-	public Tetrominoes()
-	{
-		
-	}
-	
 	public int[][] returnRandomTetromino()
 	{
 		switch (random.nextInt(7))
