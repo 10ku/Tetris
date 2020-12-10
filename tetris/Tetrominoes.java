@@ -8,39 +8,39 @@ public class Tetrominoes
 		{0,-1,1,2}, //x
 		{0, 0,0,0}, //y
 				 };
-				
+
 	private final static int[][] jBlock = {
-		{0,-1,1,1}, 
-		{0, 0,0,1}, 
+		{0,-1,1,1},
+		{0, 0,0,1},
 				 };
-	
+
 	private final static int[][] lBlock = {
-		{0,1,-1,-1}, 
-		{0,0, 0, 1}, 
+		{0,1,-1,-1},
+		{0,0, 0, 1},
 				  };
-				
+
 	private final static int[][] oBlock = {
-		{0,1,0,1}, 
-		{0,0,1,1}, 
+		{0,1,0,1},
+		{0,0,1,1},
 				};
-				
+
 	private final static int[][] sBlock = {
-		{0,1,0,-1}, 
-		{0,0,1, 1}, 
+		{0,1,0,-1},
+		{0,0,1, 1},
 				 };
-	
+
 	private final static int[][] tBlock = {
-		{0,-1,0,1}, 
-		{0, 0,1,0}, 
+		{0,-1,0,1},
+		{0, 0,1,0},
 				 };
-				
+
 	private final static int[][] zBlock = {
-		{0,-1,0,1}, 
-		{0, 0,1,1}, 
+		{0,-1,0,1},
+		{0, 0,1,1},
 				 };
-	
+
 	private Random random = new Random();
-	
+
 	public int[][] returnRandomTetromino()
 	{
 		switch (random.nextInt(7))

@@ -9,11 +9,11 @@ public class Board
 	private static final byte TETROMINO = 3;
 	private static final byte LOCKED_TETROMINO = 4;
 	private static final byte LINE = 5;
-	
+
 	//gameBoard size
 	private static final byte BOARD_HEIGHT = 19;
 	private static final byte BOARD_LENGTH = 12;
-	
+
 	//graphicsBoard character array
 	private static final String CHARACTER_GRAPHICS = ".|=X+#";
 
@@ -33,7 +33,7 @@ public class Board
 		graphicsBoard = new char[gameBoard.length][gameBoard[0].length];
 		this.setGameBoard();
 	}
-	
+
 	public void setGameBoard()
 	{
 		for (int i = 0; i < gameBoard.length; i++)
@@ -42,7 +42,7 @@ public class Board
 			{
 				if (j == 0 || j == gameBoard[0].length - 1)
 				{
-					gameBoard[i][j] = WALL; 
+					gameBoard[i][j] = WALL;
 				}
 				else if (i == gameBoard.length - 1)
 				{
@@ -55,7 +55,7 @@ public class Board
 			}
 		}
 	}
-	
+
 	public void setGraphicsBoard()
 	{
 		for (int i = 0; i < graphicsBoard.length; i++)
@@ -72,7 +72,7 @@ public class Board
 		int x = 0;
 		int y = 0;
 		int lockTetromino = 0;
-		
+
 		//Detect collision and resolve
 		for (int i = 0; i < 4; i++)
 		{
@@ -113,11 +113,11 @@ public class Board
 		insertTetromino(tetromino, lockTetromino);
 		return lockTetromino;
 	}
-	
+
 	public void clearLines()
 	{
 		int linesCleared = 0;
-		
+
 		for (int i = 0; i < gameBoard.length; i++)
 		{
 			if (gameBoard[i][1] == LINE)
@@ -129,11 +129,11 @@ public class Board
 				{
 					gameBoard[i][j] = EMPTY_SPACE;
 				}
-				
+
 				moveLinesDownTo(i);
 			}
 		}
-		
+
 		switch (linesCleared)
 		{
 		case 1:
@@ -153,12 +153,12 @@ public class Board
 			break;
 		}
 	}
-	
+
 	public void nextTetromino(Tetromino tetromino)
 	{
 		int x = 0;
 		int y = 0;
-		
+
 		for (int i = 0; i < nextTetrominoGraphic.length; i++)
 		{
 			for (int j = 0; j < nextTetrominoGraphic[0].length; j++)
@@ -166,20 +166,20 @@ public class Board
 				nextTetrominoGraphic[i][j] = CHARACTER_GRAPHICS.charAt(EMPTY_SPACE);
 			}
 		}
-		
+
 		for (int k = 0; k < 4; k++)
 		{
 			x = tetromino.tetromino[0][k];
 			y = tetromino.tetromino[1][k];
-			
+
 			nextTetrominoGraphic[y + 1][x + 1] = CHARACTER_GRAPHICS.charAt(TETROMINO);
 		}
 	}
-	
+
 	public String toString()
 	{
 		String boardString = "";
-		
+
 		for (int i = 0; i < graphicsBoard.length; i++)
 		{
 			for (int j = 0; j < graphicsBoard[0].length; j++)
@@ -260,12 +260,12 @@ public class Board
 	{
 		int x = 0;
 		int y = 0;
-		
+
 		for (int i = 0; i < 4; i++)
 		{
 			x = tetromino.tetromino[0][i];
 			y = tetromino.tetromino[1][i];
-			
+
 			if (lockTetromino == GlobalConstants.FAILED)
 			{
 				gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] = TETROMINO;
@@ -275,7 +275,7 @@ public class Board
 				gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] = LOCKED_TETROMINO;
 			}
 		}
-		
+
 		if (lockTetromino == GlobalConstants.SUCCEEDED)
 		{
 			checkForLines();
@@ -285,7 +285,7 @@ public class Board
 	private void checkForLines()
 	{
 		int num = 0;
-		
+
 		for (int i = 0; i < gameBoard.length; i++)
 		{
 			num = 0;

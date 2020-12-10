@@ -16,7 +16,7 @@ public class Tetris
 {
 	static final byte REQUIRED_LINES_PER_LEVEL = 10;
 	static final byte FASTEST_GAME_SPEED = 2;
-	
+
 	/*
 	 * index 0 - up
 	 * index 1 - down
@@ -26,11 +26,11 @@ public class Tetris
 	//Tetris input variables
 	static boolean[] input = new boolean[4];
 	static int lastMove = GlobalConstants.NONE;
-	
+
 	//Tetris state variables
 	static boolean quit = false;
 	static boolean newGame = false;
-	
+
 	//Tetris gameplay variables
 	static Tetrominoes tetrominoes = new Tetrominoes();
 	static Board myBoard;
@@ -41,7 +41,7 @@ public class Tetris
 	static int gameSpeed;
 	static int gameSpeedCount;
 	static boolean forceTetrominoDown = false;
-	
+
 	private static void configureBinds(JTextArea textArea)
 	{
 		textArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "up");
@@ -103,7 +103,7 @@ public class Tetris
 			}
 		});
 	}
-	
+
 	private static void processInput(Tetromino mino)
 	{
 		if (input[0] == true)
@@ -130,7 +130,7 @@ public class Tetris
 			input[i] = false;
 		}
 	}
-	
+
 	private static void initGame()
 	{
 		myBoard = new Board();
@@ -142,7 +142,7 @@ public class Tetris
 		gameSpeedCount = 0;
 		newGame = false;
 	}
-	
+
 	public static void main(String[] args)
 	{
 		//GUI declarations
@@ -150,7 +150,7 @@ public class Tetris
 		JTextArea textArea = new JTextArea();
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		PrintStream printStream = new PrintStream(new Output(textArea));
-		
+
 		//GUI parameters
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 		textArea.setBackground(Color.BLACK);
@@ -163,32 +163,32 @@ public class Tetris
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		
+
 		//GUI MISC
 		System.setOut(printStream);
 		System.setErr(printStream);
-		
+
 		//Tetris
 		initGame();
 		configureBinds(textArea);
-		
+
 		while (quit == false)
 		{
 			//TIME
 			try
 			{
 				Thread.sleep(40);
-			} 
+			}
 			catch (InterruptedException e)
 			{
 				e.printStackTrace();
 			}
-			
+
 			if (myBoard.hasLines == false)
 			{
 				gameSpeedCount++;
 			}
-			
+
 			if (myBoard.difficultyCounter / REQUIRED_LINES_PER_LEVEL > 0)
 			{
 				myBoard.difficultyCounter %= REQUIRED_LINES_PER_LEVEL;
@@ -198,21 +198,21 @@ public class Tetris
 					myBoard.level++;
 				}
 			}
-			
+
 			if (gameSpeedCount == gameSpeed)
 			{
 				forceTetrominoDown = true;
 			}
-			
+
 			//GAME
 			if (newBlock == true)
 			{
 				currMino = nextMino;
-				nextMino = new Tetromino(tetrominoes.returnRandomTetromino());				
+				nextMino = new Tetromino(tetrominoes.returnRandomTetromino());
 				myBoard.nextTetromino(nextMino);
 				newBlock = false;
 			}
-			
+
 			if (myBoard.hasLines == false)
 			{
 				processInput(currMino);
@@ -223,9 +223,9 @@ public class Tetris
 				myBoard.clearLines();
 				myBoard.hasLines = false;
 			}
-			
+
 			lockTetromino = myBoard.tryLockingTetromino(currMino, lastMove);
-			
+
 			if (lockTetromino == GlobalConstants.SUCCEEDED)
 			{
 				newBlock = true;
@@ -240,7 +240,7 @@ public class Tetris
 					try
 					{
 						Thread.sleep(300);
-					} 
+					}
 					catch (InterruptedException e)
 					{
 						e.printStackTrace();
@@ -260,13 +260,13 @@ public class Tetris
 				forceTetrominoDown = false;
 				gameSpeedCount = 0;
 			}
-			
+
 			//RENDER
 			textArea.setText(null);
 			myBoard.setGraphicsBoard();
 			System.out.println(myBoard.toString());
 		}
-		
+
 		frame.dispose();
 	}
 }
