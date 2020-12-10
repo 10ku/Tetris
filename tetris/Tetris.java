@@ -23,11 +23,23 @@ public class Tetris
 	 * index 2 - left
 	 * index 3 - right
 	 */
+	//Tetris input variables
 	static boolean[] input = new boolean[4];
 	static int lastMove = GlobalConstants.NONE;
 	
+	//Tetris state variables
 	static boolean quit = false;
 	static boolean newGame = false;
+	
+	//Tetris gameplay variables
+	static Tetrominoes tetrominoes = new Tetrominoes();
+	static Board myBoard;
+	static Tetromino currMino;
+	static Tetromino nextMino;
+	static boolean newBlock;
+	static int lockTetromino;
+	static int gameSpeed;
+	static int gameSpeedCount;
 	static boolean forceTetrominoDown = false;
 	
 	private static void configureBinds(JTextArea textArea)
@@ -119,6 +131,18 @@ public class Tetris
 		}
 	}
 	
+	private static void initGame()
+	{
+		myBoard = new Board();
+		currMino = null;
+		nextMino = new Tetromino(tetrominoes.returnRandomTetromino());
+		newBlock = true;
+		lockTetromino = GlobalConstants.FAILED;
+		gameSpeed = 12;
+		gameSpeedCount = 0;
+		newGame = false;
+	}
+	
 	public static void main(String[] args)
 	{
 		//GUI declarations
@@ -145,14 +169,7 @@ public class Tetris
 		System.setErr(printStream);
 		
 		//Tetris
-		Board myBoard = new Board();
-		Tetrominoes tetrominoes = new Tetrominoes();
-		Tetromino currMino = null;
-		Tetromino nextMino = new Tetromino(tetrominoes.returnRandomTetromino());
-		boolean newBlock = true;
-		int lockTetromino = 0;
-		int gameSpeed = 12;
-		int gameSpeedCount = 0;
+		initGame();
 		configureBinds(textArea);
 		
 		while (quit == false)
@@ -199,14 +216,9 @@ public class Tetris
 			if (myBoard.hasLines == false)
 			{
 				processInput(currMino);
-			}
-			
-			if (myBoard.hasLines == false)
-			{
 				myBoard.setGameBoard();
 			}
-			
-			if (myBoard.hasLines == true)
+			else if (myBoard.hasLines == true)
 			{
 				myBoard.clearLines();
 				myBoard.hasLines = false;
@@ -236,14 +248,7 @@ public class Tetris
 				}
 				if (newGame == true)
 				{
-					myBoard = new Board();
-					currMino = null;
-					nextMino = new Tetromino(tetrominoes.returnRandomTetromino());
-					newBlock = true;
-					lockTetromino = 0;
-					gameSpeed = 12;
-					gameSpeedCount = 0;
-					newGame = false;
+					initGame();
 					continue;
 				}
 				break;
