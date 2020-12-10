@@ -78,6 +78,7 @@ public class Board
 		int y = 0;
 		int lockTetromino = 0;
 		
+		//Detect collision and resolve
 		for (int i = 0; i < 4; i++)
 		{
 			x = tetromino.tetromino[0][i];
@@ -89,18 +90,6 @@ public class Board
 				return lockTetromino;
 			}
 			else if (gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] == 1)
-			{
-				if (tetromino.xOffset <= 5)
-				{
-					tetromino.xOffset++;
-				}
-				else
-				{
-					tetromino.xOffset--;
-				}
-				i = -1;
-			}
-			else if (gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] == 4)
 			{
 				switch (lastMove)
 				{
@@ -126,13 +115,9 @@ public class Board
 					break;
 				}
 			}
-			else if (gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] == 2)
-			{
-				lockTetromino = 1;
-				tetromino.yOffset--;
-				break;
 			}
 		}
+		//Draw tetromino
 		insertTetromino(tetromino, lockTetromino);
 		return lockTetromino;
 	}
