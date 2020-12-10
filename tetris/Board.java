@@ -48,7 +48,7 @@ public class Board
 				{
 					gameBoard[i][j] = FLOOR;
 				}
-				else if (gameBoard[i][j] != 4)
+				else if (gameBoard[i][j] != LOCKED_TETROMINO)
 				{
 					gameBoard[i][j] = EMPTY_SPACE;
 				}
@@ -67,11 +67,6 @@ public class Board
 		}
 	}
 
-	/*
-	 * 0 - False
-	 * 1 - True
-	 * 2 - Game Over
-	 */
 	public int tryLockingTetromino(Tetromino tetromino, int lastMove)
 	{
 		int x = 0;
@@ -86,35 +81,32 @@ public class Board
 
 			if (y + tetromino.yOffset < 0)
 			{
-				lockTetromino = 2;
-				return lockTetromino;
+				return GlobalConstants.GAMEOVER;
 			}
-			else if (gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] == 1)
+			else if (gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] != EMPTY_SPACE)
 			{
 				switch (lastMove)
 				{
-				case 0:
-					lastMove = 1;
+				case GlobalConstants.UP:
 					tetromino.rotateTetromino90(true);
 					i = -1;
 					break;
-				case 1:
-					lockTetromino = 1;
+				case GlobalConstants.NONE:
+				case GlobalConstants.DOWN:
+					lockTetromino = GlobalConstants.SUCCEEDED;
 					tetromino.yOffset--;
 					i = -1;
 					break;
-				case 2:
-					lastMove = 1;
+				case GlobalConstants.LEFT:
 					tetromino.xOffset++;
 					i = -1;
 					break;
-				case 3:
-					lastMove = 1;
+				case GlobalConstants.RIGHT:
 					tetromino.xOffset--;
 					i = -1;
 					break;
 				}
-			}
+				lastMove = GlobalConstants.NONE;
 			}
 		}
 		//Draw tetromino
@@ -128,14 +120,14 @@ public class Board
 		
 		for (int i = 0; i < gameBoard.length; i++)
 		{
-			if (gameBoard[i][1] == 5)
+			if (gameBoard[i][1] == LINE)
 			{
 				lines++;
 				linesCleared++;
 				difficultyCounter++;
 				for (int j = 0; j < gameBoard[0].length; j++)
 				{
-					gameBoard[i][j] = 0;
+					gameBoard[i][j] = EMPTY_SPACE;
 				}
 				
 				moveLinesDownTo(i);
@@ -171,7 +163,7 @@ public class Board
 		{
 			for (int j = 0; j < nextTetrominoGraphic[0].length; j++)
 			{
-				nextTetrominoGraphic[i][j] = '.';
+				nextTetrominoGraphic[i][j] = CHARACTER_GRAPHICS.charAt(EMPTY_SPACE);
 			}
 		}
 		
@@ -180,7 +172,7 @@ public class Board
 			x = tetromino.tetromino[0][k];
 			y = tetromino.tetromino[1][k];
 			
-			nextTetrominoGraphic[y + 1][x + 1] = 'X';
+			nextTetrominoGraphic[y + 1][x + 1] = CHARACTER_GRAPHICS.charAt(TETROMINO);
 		}
 	}
 	
@@ -274,17 +266,17 @@ public class Board
 			x = tetromino.tetromino[0][i];
 			y = tetromino.tetromino[1][i];
 			
-			if (lockTetromino == 0)
+			if (lockTetromino == GlobalConstants.FAILED)
 			{
-				gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] = 3;
+				gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] = TETROMINO;
 			}
 			else
 			{
-				gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] = 4;
+				gameBoard[y + tetromino.yOffset][x + tetromino.xOffset] = LOCKED_TETROMINO;
 			}
 		}
 		
-		if (lockTetromino == 1)
+		if (lockTetromino == GlobalConstants.SUCCEEDED)
 		{
 			checkForLines();
 		}
@@ -299,7 +291,7 @@ public class Board
 			num = 0;
 			for (int j = 0; j < gameBoard[0].length; j++)
 			{
-				if (gameBoard[i][j] == 4)
+				if (gameBoard[i][j] == LOCKED_TETROMINO)
 				{
 					num++;
 				}
@@ -308,7 +300,7 @@ public class Board
 					hasLines = true;
 					for (int k = 1; k < gameBoard[0].length - 1; k++)
 					{
-						gameBoard[i][k] = 5;
+						gameBoard[i][k] = LINE;
 					}
 				}
 			}

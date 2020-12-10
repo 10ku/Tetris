@@ -14,8 +14,8 @@ import javax.swing.KeyStroke;
 
 public class Tetris
 {
-	static boolean quit = false;
-	static boolean newGame = false;
+	static final byte REQUIRED_LINES_PER_LEVEL = 10;
+	static final byte FASTEST_GAME_SPEED = 2;
 	
 	/*
 	 * index 0 - up
@@ -24,8 +24,11 @@ public class Tetris
 	 * index 3 - right
 	 */
 	static boolean[] input = new boolean[4];
+	static int lastMove = GlobalConstants.NONE;
+	
+	static boolean quit = false;
+	static boolean newGame = false;
 	static boolean forceTetrominoDown = false;
-	static int lastMove = -1;
 	
 	private static void configureBinds(JTextArea textArea)
 	{
@@ -94,7 +97,7 @@ public class Tetris
 		if (input[0] == true)
 		{
 			mino.rotateTetromino90(false);
-			lastMove = 0;
+			lastMove = GlobalConstants.UP;
 		}
 		else if (input[1] == true)
 		{
@@ -103,12 +106,12 @@ public class Tetris
 		else if (input[2] == true)
 		{
 			mino.xOffset--;
-			lastMove = 2;
+			lastMove = GlobalConstants.LEFT;
 		}
 		else if (input[3] == true)
 		{
 			mino.xOffset++;
-			lastMove = 3;
+			lastMove = GlobalConstants.RIGHT;
 		}
 		for (int i = 0; i < 4; i++)
 		{
@@ -169,10 +172,10 @@ public class Tetris
 				gameSpeedCount++;
 			}
 			
-			if (myBoard.difficultyCounter / 10 > 0)
+			if (myBoard.difficultyCounter / REQUIRED_LINES_PER_LEVEL > 0)
 			{
-				myBoard.difficultyCounter %= 10;
-				if (gameSpeed > 2)
+				myBoard.difficultyCounter %= REQUIRED_LINES_PER_LEVEL;
+				if (gameSpeed > FASTEST_GAME_SPEED)
 				{
 					gameSpeed--;
 					myBoard.level++;
@@ -211,11 +214,11 @@ public class Tetris
 			
 			lockTetromino = myBoard.tryLockingTetromino(currMino, lastMove);
 			
-			if (lockTetromino == 1)
+			if (lockTetromino == GlobalConstants.SUCCEEDED)
 			{
 				newBlock = true;
 			}
-			else if (lockTetromino == 2)
+			else if (lockTetromino == GlobalConstants.GAMEOVER)
 			{
 				textArea.setText(null);
 				System.out.println("Game Over!\n");
@@ -248,7 +251,7 @@ public class Tetris
 			else if (forceTetrominoDown == true)
 			{
 				currMino.yOffset++;
-				lastMove = 1;
+				lastMove = GlobalConstants.DOWN;
 				forceTetrominoDown = false;
 				gameSpeedCount = 0;
 			}
